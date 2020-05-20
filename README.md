@@ -15,8 +15,8 @@
 
 # BERTweet: A pre-trained language model for English Tweets <a name="introduction"></a>
 
- - BERTweet the first public large-scale language model pre-trained for English Tweets. BERTweet is trained based on the [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  pre-training procedure, using the same model configuration as [BERT-base](https://github.com/google-research/bert). 
- - The corpus used to pre-train BERTweet contains 850M English Tweets (16B word tokens ~ 80GB), consisting of 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related the COVID-19 outbreak. 
+ - BERTweet is the first public large-scale language model pre-trained for English Tweets. BERTweet is trained based on the [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  pre-training procedure, using the same model configuration as [BERT-base](https://github.com/google-research/bert). 
+ - The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related the **COVID-19** pandemic. 
  - BERTweet does better than its competitors RoBERTa-base and [XLM-R-base](https://arxiv.org/abs/1911.02116) and outperforms previous state-of-the-art models on three downstream Tweet NLP tasks of Part-of-speech tagging, Named entity recognition and text classification.
 
 The general architecture and experimental results of BERTweet can be found in our [paper]():
