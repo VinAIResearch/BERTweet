@@ -10,7 +10,7 @@
 	- [Installation](#install2)
 	- [Pre-trained model](#models2)
 	- [Example usage](#usage2)
-5. [Scripts to pre-process raw data](#preprocess)
+5. [A script to pre-process raw input Tweets](#preprocess)
 
 
 # BERTweet: A pre-trained language model for English Tweets <a name="introduction"></a>
@@ -109,7 +109,7 @@ for candidate in topk_filled_outputs:
 
 Model | #params | size | Download
 ---|---|---|---
-`BERTweet-base` | 135M | 307MB | [BERTweet_base_transformers.tar.gz](https://public.vinai.io/BERTweet_base_transformers.tar.gz)
+`BERTweet-base` | 135M | 0.3GB | [BERTweet_base_transformers.tar.gz](https://public.vinai.io/BERTweet_base_transformers.tar.gz)
 
  - `wget https://public.vinai.io/BERTweet_base_transformers.tar.gz`
  - `tar -xzvf BERTweet_base_transformers.tar.gz`
@@ -166,7 +166,7 @@ all_input_ids = torch.tensor([input_ids], dtype=torch.long)
 # Extract features  
 with torch.no_grad():  
     features = BERTweet(all_input_ids)  
-  
+
 # Represent each word by the contextualized embedding of its first subword token  
 # i. Get indices of the first subword tokens of words in the input sentence 
 listSWs = subwords.split()  
@@ -183,4 +183,15 @@ for word, index in zip(words, firstSWindices):
     print(word + " --> " + " ".join([str(features[0][0, index, :][_ind].item()) for _ind in range(vectorSize)]))
     # print(word + " --> " + listSWs[index] + " --> " + " ".join([str(features[0][0, index, :][_ind].item()) for _ind in range(vectorSize)]))
 
+```
+
+## A script to pre-process raw input Tweets <a name="preprocess"></a>
+
+Before applying `fastBPE` to the pre-training corpus of 850M English Tweets, we tokenize these  Tweets using `TweetTokenizer` from the NLTK toolkit and use the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalize the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. It is recommended to also apply the same pre-process step for BERTweet-based downstream applications w.r.t. the raw input Tweets.
+
+- Installation: `pip3 install nltk emoji`
+
+```python
+from TweetNormalizer import normalizeTweet
+print(normalizeTweet("SC has first two presumptive cases of coronavirus, DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier"))
 ```
