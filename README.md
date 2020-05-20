@@ -187,7 +187,7 @@ for word, index in zip(words, firstSWindices):
 
 ## A script to pre-process raw input Tweets <a name="preprocess"></a>
 
-Before applying `fastBPE` to the pre-training corpus of 850M English Tweets, we tokenize these  Tweets using `TweetTokenizer` from the NLTK toolkit and use the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalize the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. It is recommended to also apply the same pre-process step for BERTweet-based downstream applications w.r.t. the raw input Tweets.
+Before applying `fastBPE` to the pre-training corpus of 850M English Tweets, we tokenize these  Tweets using `TweetTokenizer` from the NLTK toolkit and use the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalize the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. It is recommended to also apply the same pre-processing step for BERTweet-based downstream applications w.r.t. the raw input Tweets.
 
 - Installation: `pip3 install nltk emoji`
 
