@@ -13,7 +13,7 @@
 5. [A script to pre-process raw input Tweets](#preprocess)
 
 
-# BERTweet: A pre-trained language model for English Tweets <a name="introduction"></a>
+# <a name="introduction"></a> BERTweet: A pre-trained language model for English Tweets 
 
  - BERTweet is the first public large-scale language model pre-trained for English Tweets. BERTweet is trained based on the [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  pre-training procedure, using the same model configuration as [BERT-base](https://github.com/google-research/bert). 
  - The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related the **COVID-19** pandemic. 
@@ -31,29 +31,29 @@ The general architecture and experimental results of BERTweet can be found in ou
 
 **Please CITE** our paper when BERTweet is used to help produce published results or incorporated into other software.
 
-## Main results <a name="exp"></a>
+## <a name="exp"></a> Main results 
 
 <img width="257" alt="postagging" src="https://user-images.githubusercontent.com/2412555/82403966-490d6380-9a8a-11ea-8530-18d6e06641cf.png"><img width="250" alt="ner" src="https://user-images.githubusercontent.com/2412555/82403965-4874cd00-9a8a-11ea-9847-0192d11e3e31.png"><img width="250" alt="textclassification" src="https://user-images.githubusercontent.com/2412555/82403956-43b01900-9a8a-11ea-8b34-a89e1e7d52a7.png">
 
-## Using BERTweet in [`fairseq`](https://github.com/pytorch/fairseq) <a name="fairseq"></a>
+## <a name="fairseq"></a> Using BERTweet in [`fairseq`](https://github.com/pytorch/fairseq) 
 
-### Installation <a name="install1"></a>
+### <a name="install1"></a> Installation 
 
  -  Python version >= 3.6
  - [PyTorch](http://pytorch.org/) version >= 1.4.0
  - [`fairseq`](https://github.com/pytorch/fairseq)
  - `fastBPE`: `pip3 install fastBPE`
 
-### Pre-trained model <a name="models1"></a>
+### <a name="models1"></a> Pre-trained model 
 
 Model | #params | size | Download
 ---|---|---|---
-`BERTweet-base` | 135M | 1.2GB | [BERTweet_base_fairseq.tar.gz](https://public.vinai.io/BERTweet_base_fairseq.tar.gz)
+`BERTweet-base` | 135M | 1.2GB | [BERTweet_base_fairseq.tar.gz](https://public.vinai.io/BERTweet_base_fairseq.tar.gz) (`md5sum` 692cd647e630c9f5de5d3a6ccfea6eb2)
 
  - `wget https://public.vinai.io/BERTweet_base_fairseq.tar.gz`
  - `tar -xzvf BERTweet_base_fairseq.tar.gz`
 
-### Example usage <a name="usage1"></a>
+### <a name="usage1"></a> Example usage 
 
 ```python
 import torch
@@ -99,23 +99,23 @@ for candidate in topk_filled_outputs:
 ```
 
 
-## Using BERTweet in HuggingFace's [`transformers`](https://github.com/huggingface/transformers) <a name="transformers"></a>
+## <a name="transformers"></a> Using BERTweet in HuggingFace's [`transformers`](https://github.com/huggingface/transformers) 
 
-### Installation <a name="install2"></a>
+### <a name="install2"></a> Installation 
 - Prerequisite: [Installation w.r.t. `fairseq`](#install1)
 -  [`transformers`](https://github.com/huggingface/transformers): `pip3 install transformers`
 
-### Pre-trained model <a name="models2"></a>
+### <a name="models2"></a> Pre-trained model 
 
 Model | #params | size | Download
 ---|---|---|---
-`BERTweet-base` | 135M | 0.3GB | [BERTweet_base_transformers.tar.gz](https://public.vinai.io/BERTweet_base_transformers.tar.gz)
+`BERTweet-base` | 135M | 0.3GB | [BERTweet_base_transformers.tar.gz](https://public.vinai.io/BERTweet_base_transformers.tar.gz) (`md5sum` defd97f13fe176835fa74495b1da7f00)
 
  - `wget https://public.vinai.io/BERTweet_base_transformers.tar.gz`
  - `tar -xzvf BERTweet_base_transformers.tar.gz`
 
 
-### Example usage <a name="usage2"></a>
+### <a name="usage2"></a> Example usage 
 
 ```python
 import torch
@@ -185,9 +185,9 @@ for word, index in zip(words, firstSWindices):
 
 ```
 
-## A script to pre-process raw input Tweets <a name="preprocess"></a>
+## <a name="preprocess"></a> A script to pre-process raw input Tweets 
 
-Before applying `fastBPE` to the pre-training corpus of 850M English Tweets, we tokenize these  Tweets using `TweetTokenizer` from the NLTK toolkit and use the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalize the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. It is recommended to also apply the same pre-processing step for BERTweet-based downstream applications w.r.t. the raw input Tweets.
+Before applying `fastBPE` to the pre-training corpus of 850M English Tweets, we tokenized these  Tweets using `TweetTokenizer` from the NLTK toolkit and used the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalized the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. Thus it is recommended to also apply the same pre-processing step for BERTweet-based downstream applications w.r.t. the raw input Tweets.
 
 - Installation: `pip3 install nltk emoji`
 
