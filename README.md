@@ -19,13 +19,13 @@
  - The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related the **COVID-19** pandemic. 
  - BERTweet does better than its competitors RoBERTa-base and [XLM-R-base](https://arxiv.org/abs/1911.02116) and outperforms previous state-of-the-art models on three downstream Tweet NLP tasks of Part-of-speech tagging, Named entity recognition and text classification.
 
-The general architecture and experimental results of BERTweet can be found in our [paper]():
+The general architecture and experimental results of BERTweet can be found in our [paper](https://arxiv.org/abs/2005.10200):
 
     @article{BERTweet,
-    title     = {{}},
-    author    = {},
+    title     = {{BERTweet: A pre-trained language model for English Tweets}},
+    author    = {Dat Quoc Nguyen, Thanh Vu and Anh Tuan Nguyen},
     journal   = {arXiv preprint},
-    volume    = {},
+    volume    = {arXiv:2005.10200},
     year      = {2020}
     }
 
