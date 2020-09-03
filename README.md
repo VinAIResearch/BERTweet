@@ -1,13 +1,12 @@
   
 #### Table of contents
 1. [Introduction](#introduction)
-2. [Experimental results](#exp)
-3. [Using BERTweet with `transformers`](#transformers)
+2. [Using BERTweet with `transformers`](#transformers)
     - [Installation](#install2)
     - [Pre-trained model](#models2)
     - [Example usage](#usage2)
     - [Normalize raw input Tweets](#preprocess)
-4. [Using BERTweet with `fairseq`](#fairseq)
+3. [Using BERTweet with `fairseq`](#fairseq)
 
 
 # <a name="introduction"></a> BERTweet: A pre-trained language model for English Tweets 
