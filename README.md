@@ -74,14 +74,11 @@ Before applying `fastBPE` to the pre-training corpus of 850M English Tweets, we 
 
 ```python
 import torch
-from transformers import BertweetTokenizer
+from transformers import AutoTokenizer # BertweetTokenizer
 
-# Load the BertweetTokenizer with a normalization mode if the input Tweet is raw
-tokenizer = BertweetTokenizer.from_pretrained("vinai/bertweet-base", normalization=True)
-
-# BERTweet's tokenizer can be also loaded in the "Auto" mode
-# from transformers import AutoTokenizer
-# tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base", normalization=True)
+# Load the AutoTokenizer with a normalization mode if the input Tweet is raw
+tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base", normalization=True)
+# tokenizer = BertweetTokenizer.from_pretrained("vinai/bertweet-base", normalization=True)
 
 line = "SC has first two presumptive cases of coronavirus, DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier"
 
