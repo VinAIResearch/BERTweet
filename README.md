@@ -17,11 +17,10 @@
 
 The general architecture and experimental results of BERTweet can be found in our [paper](https://arxiv.org/abs/2005.10200):
 
-    @article{BERTweet,
+    @inproceedings{bertweet,
     title     = {{BERTweet: A pre-trained language model for English Tweets}},
-    author    = {Dat Quoc Nguyen, Thanh Vu and Anh Tuan Nguyen},
-    journal   = {arXiv preprint},
-    volume    = {arXiv:2005.10200},
+    author    = {Dat Quoc Nguyen and Thanh Vu and Anh Tuan Nguyen},
+    booktitle = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations},
     year      = {2020}
     }
 
@@ -54,15 +53,11 @@ Model | #params | Arch. | Pre-training data
 
 ```python
 import torch
-from transformers import BertweetModel, BertweetTokenizer
+from transformers import AutoModel, AutoTokenizer #, BertweetTokenizer
 
-bertweet = BertweetModel.from_pretrained("vinai/bertweet-base")
-tokenizer = BertweetTokenizer.from_pretrained("vinai/bertweet-base")
-
-# BERTweet can be also loaded in the "Auto" mode
-# from transformers import AutoModel, AutoTokenizer
-# bertweet = AutoModel.from_pretrained("vinai/bertweet-base")
-# tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
+bertweet = AutoModel.from_pretrained("vinai/bertweet-base")
+tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
+#tokenizer = BertweetTokenizer.from_pretrained("vinai/bertweet-base")
 
 # INPUT TWEET IS ALREADY NORMALIZED!
 line = "SC has first two presumptive cases of coronavirus , DHEC confirms HTTPURL via @USER :cry:"
