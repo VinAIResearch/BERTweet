@@ -35,7 +35,7 @@ The general architecture and experimental results of BERTweet can be found in ou
  -  Install `transformers` from our development branch:
     - `git clone https://github.com/datquocnguyen/transformers.git`
     - `cd transformers`
-    - `pip3 install .`
+    - `pip install --upgrade .`
  - Install `emoji`: `pip3 install emoji`
 
 We also created a pull request to integrate BERTweet into the master branch of the `transformers` library. Please see the latest updates at:  https://github.com/huggingface/transformers/pull/6129
