@@ -1,18 +1,3 @@
-  
-#### Table of contents
-1. [Introduction](#introduction)
-2. [Experimental results](#exp)
-3. [Using BERTweet in `fairseq`](#fairseq)
-	- [Installation](#install1)
-	- [Pre-trained model](#models1)
-	- [Example usage](#usage1)
-4. [Using BERTweet in `transformers`](#transformers)
-	- [Installation](#install2)
-	- [Pre-trained model](#models2)
-	- [Example usage](#usage2)
-5. [A script to pre-process raw input Tweets](#preprocess)
-
-
 # <a name="introduction"></a> BERTweet: A pre-trained language model for English Tweets 
 
  - BERTweet is the first public large-scale language model pre-trained for English Tweets. BERTweet is trained based on the [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  pre-training procedure, using the same model configuration as [BERT-base](https://github.com/google-research/bert). 
@@ -21,11 +6,10 @@
 
 The general architecture and experimental results of BERTweet can be found in our [paper](https://arxiv.org/abs/2005.10200):
 
-    @article{BERTweet,
+    @inproceedings{bertweet,
     title     = {{BERTweet: A pre-trained language model for English Tweets}},
-    author    = {Dat Quoc Nguyen, Thanh Vu and Anh Tuan Nguyen},
-    journal   = {arXiv preprint},
-    volume    = {arXiv:2005.10200},
+    author    = {Dat Quoc Nguyen and Thanh Vu and Anh Tuan Nguyen},
+    booktitle = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations},
     year      = {2020}
     }
 
@@ -98,94 +82,7 @@ for candidate in topk_filled_outputs:
 
 ```
 
-
-## <a name="transformers"></a> Using BERTweet in HuggingFace's [`transformers`](https://github.com/huggingface/transformers) 
-
-### <a name="install2"></a> Installation 
-- Prerequisite: [Installation w.r.t. `fairseq`](#install1)
--  [`transformers`](https://github.com/huggingface/transformers): `pip3 install transformers`
-
-### <a name="models2"></a> Pre-trained model 
-
-Model | #params | size | Download
----|---|---|---
-`BERTweet-base` | 135M | 0.3GB | [BERTweet_base_transformers.tar.gz](https://public.vinai.io/BERTweet_base_transformers.tar.gz) (`md5sum` defd97f13fe176835fa74495b1da7f00)
-
- - `wget https://public.vinai.io/BERTweet_base_transformers.tar.gz`
- - `tar -xzvf BERTweet_base_transformers.tar.gz`
-
-
-### <a name="usage2"></a> Example usage 
-
-```python
-import torch
-import argparse
-
-from transformers import RobertaConfig
-from transformers import RobertaModel
-
-from fairseq.data.encoders.fastbpe import fastBPE
-from fairseq.data import Dictionary
-
-# Load model
-config = RobertaConfig.from_pretrained(
-    "/Absolute-path-to/BERTweet_base_transformers/config.json"
-)
-BERTweet = RobertaModel.from_pretrained(
-    "/Absolute-path-to/BERTweet_base_transformers/model.bin",
-    config=config
-)
-
-# Load BPE encoder 
-parser = argparse.ArgumentParser()
-parser.add_argument('--bpe-codes', 
-    default="/Absolute-path-to/BERTweet_base_transformers/bpe.codes",
-    required=False,
-    type=str,  
-    help='path to fastBPE BPE'
-)
-args = parser.parse_args()
-bpe = fastBPE(args)
-
-# Load the dictionary  
-vocab = Dictionary()
-vocab.add_from_file("/Absolute-path-to/BERTweet_base_transformers/dict.txt")
-
-# INPUT TEXT IS TOKENIZED!
-line = "SC has first two presumptive cases of coronavirus , DHEC confirms HTTPURL via @USER :cry:" 
-
-# Encode the line using fastBPE & Add prefix <s> and suffix </s> 
-subwords = '<s> ' + bpe.encode(line) + ' </s>'
-
-# Map subword tokens to corresponding indices in the dictionary
-input_ids = vocab.encode_line(subwords, append_eos=False, add_if_not_exist=False).long().tolist()
-
-# Convert into torch tensor
-all_input_ids = torch.tensor([input_ids], dtype=torch.long)
-
-# Extract features  
-with torch.no_grad():  
-    features = BERTweet(all_input_ids)  
-
-# Represent each word by the contextualized embedding of its first subword token  
-# i. Get indices of the first subword tokens of words in the input sentence 
-listSWs = subwords.split()  
-firstSWindices = []  
-for ind in range(1, len(listSWs) - 1):  
-    if not listSWs[ind - 1].endswith("@@"):  
-        firstSWindices.append(ind)  
-
-# ii. Extract the corresponding contextualized embeddings  
-words = line.split()  
-assert len(firstSWindices) == len(words)  
-vectorSize = features[0][0, 0, :].size()[0]  
-for word, index in zip(words, firstSWindices):  
-    print(word + " --> " + " ".join([str(features[0][0, index, :][_ind].item()) for _ind in range(vectorSize)]))
-    # print(word + " --> " + listSWs[index] + " --> " + " ".join([str(features[0][0, index, :][_ind].item()) for _ind in range(vectorSize)]))
-
-```
-
-## <a name="preprocess"></a> A script to pre-process raw input Tweets 
+### <a name="preprocess"></a> A script to pre-process raw input Tweets 
 
 Before applying `fastBPE` to the pre-training corpus of 850M English Tweets, we tokenized these  Tweets using `TweetTokenizer` from the NLTK toolkit and used the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalized the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. Thus it is recommended to also apply the same pre-processing step for BERTweet-based downstream applications w.r.t. the raw input Tweets.
 

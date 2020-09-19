@@ -1,12 +1,13 @@
   
 #### Table of contents
 1. [Introduction](#introduction)
-2. [Using BERTweet with `transformers`](#transformers)
+2. [Main results](#exp)
+3. [Using BERTweet with `transformers`](#transformers)
     - [Installation](#install2)
     - [Pre-trained model](#models2)
     - [Example usage](#usage2)
     - [Normalize raw input Tweets](#preprocess)
-3. [Using BERTweet with `fairseq`](#fairseq)
+4. [Using BERTweet with `fairseq`](#fairseq)
 
 
 # <a name="introduction"></a> BERTweet: A pre-trained language model for English Tweets 
@@ -26,19 +27,20 @@ The general architecture and experimental results of BERTweet can be found in ou
 
 **Please CITE** our paper when BERTweet is used to help produce published results or is incorporated into other software.
 
+## <a name="exp"></a> Main results 
+
+<img width="257" alt="postagging" src="https://user-images.githubusercontent.com/2412555/82403966-490d6380-9a8a-11ea-8530-18d6e06641cf.png"><img width="250" alt="ner" src="https://user-images.githubusercontent.com/2412555/82403965-4874cd00-9a8a-11ea-9847-0192d11e3e31.png"><img width="250" alt="textclassification" src="https://user-images.githubusercontent.com/2412555/82403956-43b01900-9a8a-11ea-8b34-a89e1e7d52a7.png">
+
 ## <a name="transformers"></a> Using BERTweet with `transformers`
 
 ### <a name="install2"></a> Installation 
 
- -  Python version >= 3.6
- - [PyTorch](http://pytorch.org/) version >= 1.4.0
- -  Install `transformers` from our development branch:
-    - `git clone https://github.com/datquocnguyen/transformers.git`
+ -  Python 3.6+, and PyTorch 1.1.0+ or TensorFlow 2.0+
+ -  Install `transformers`:
+    - `git clone https://github.com/huggingface/transformers.git`
     - `cd transformers`
-    - `pip install --upgrade .`
+    - `pip3 install --upgrade .`
  - Install `emoji`: `pip3 install emoji`
-
-We also created a pull request to integrate BERTweet into the master branch of the `transformers` library. Please see the latest updates at:  https://github.com/huggingface/transformers/pull/6129
 
 ### <a name="models2"></a> Pre-trained model 
 
@@ -53,11 +55,15 @@ Model | #params | Arch. | Pre-training data
 
 ```python
 import torch
-from transformers import AutoModel, AutoTokenizer #, BertweetTokenizer
+from transformers import AutoModel, AutoTokenizer 
 
 bertweet = AutoModel.from_pretrained("vinai/bertweet-base")
 tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
-#tokenizer = BertweetTokenizer.from_pretrained("vinai/bertweet-base")
+
+## With TensorFlow 2.0+:
+# from transformers import TFAutoModel, TFAutoTokenizer
+# bertweet = TFAutoModel.from_pretrained("vinai/bertweet-base")
+# tokenizer = TFAutoTokenizer.from_pretrained("vinai/bertweet-base")
 
 # INPUT TWEET IS ALREADY NORMALIZED!
 line = "SC has first two presumptive cases of coronavirus , DHEC confirms HTTPURL via @USER :cry:"
@@ -87,7 +93,7 @@ input_ids = torch.tensor([tokenizer.encode(line)])
 
 ## <a name="fairseq"></a> Using BERTweet with `fairseq`
 
-Please see details at [HERE](https://github.com/VinAIResearch/BERTweet/blob/master/README_fairseq_and_old_transformers_version.md)!
+Please see details at [HERE](https://github.com/VinAIResearch/BERTweet/blob/master/README_fairseq.md)!
 
 ## License
     
