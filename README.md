@@ -35,7 +35,7 @@ The general architecture and experimental results of BERTweet can be found in ou
 
 ### <a name="install2"></a> Installation 
 
- -  Python 3.6+, and PyTorch 1.1.0+ or TensorFlow 2.0+
+ -  Python 3.6+, and PyTorch 1.1.0+ (or TensorFlow 2.0+)
  -  Install `transformers`:
     - `git clone https://github.com/huggingface/transformers.git`
     - `cd transformers`
