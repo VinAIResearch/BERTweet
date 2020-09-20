@@ -51,7 +51,7 @@ Model | #params | Arch. | Pre-training data
 `vinai/bertweet-covid19-base-cased` | 135M | base | 23M COVID-19 English Tweets (cased)
 `vinai/bertweet-covid19-base-uncased` | 135M | base | 23M COVID-19 English Tweets (uncased)
 
-Two pre-trained models `vinai/bertweet-covid19-base-cased` and `vinai/bertweet-covid19-base-uncased` are resulted by further fine-tuning the pre-trained model `vinai/bertweet-base` on a pre-training corpus of 23M COVID-19 English Tweets for 40 epochs.  
+Two pre-trained models `vinai/bertweet-covid19-base-cased` and `vinai/bertweet-covid19-base-uncased` are resulted by further pre-training the pre-trained model `vinai/bertweet-base` on a corpus of 23M COVID-19 English Tweets for 40 epochs.  
 
 ### <a name="usage2"></a> Example usage 
 
