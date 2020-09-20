@@ -60,11 +60,6 @@ from transformers import AutoModel, AutoTokenizer
 bertweet = AutoModel.from_pretrained("vinai/bertweet-base")
 tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
 
-## With TensorFlow 2.0+:
-# from transformers import TFAutoModel, TFAutoTokenizer
-# bertweet = TFAutoModel.from_pretrained("vinai/bertweet-base")
-# tokenizer = TFAutoTokenizer.from_pretrained("vinai/bertweet-base")
-
 # INPUT TWEET IS ALREADY NORMALIZED!
 line = "SC has first two presumptive cases of coronavirus , DHEC confirms HTTPURL via @USER :cry:"
 
