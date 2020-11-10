@@ -16,20 +16,17 @@
  - The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related to the **COVID-19** pandemic. 
  - BERTweet does better than its competitors RoBERTa-base and [XLM-R-base](https://arxiv.org/abs/1911.02116) and outperforms previous state-of-the-art models on three downstream Tweet NLP tasks of Part-of-speech tagging, Named entity recognition and text classification.
 
-The general architecture and experimental results of BERTweet can be found in our [paper](https://arxiv.org/abs/2005.10200):
+The general architecture and experimental results of BERTweet can be found in our [paper](https://www.aclweb.org/anthology/2020.emnlp-demos.2/):
 
     @inproceedings{bertweet,
     title     = {{BERTweet: A pre-trained language model for English Tweets}},
     author    = {Dat Quoc Nguyen and Thanh Vu and Anh Tuan Nguyen},
     booktitle = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations},
-    year      = {2020}
+    year      = {2020},
+    pages     = {9--14}
     }
 
 **Please CITE** our paper when BERTweet is used to help produce published results or is incorporated into other software.
-
-## <a name="exp"></a> Main results 
-
-<img width="257" alt="postagging" src="https://user-images.githubusercontent.com/2412555/82403966-490d6380-9a8a-11ea-8530-18d6e06641cf.png"><img width="250" alt="ner" src="https://user-images.githubusercontent.com/2412555/82403965-4874cd00-9a8a-11ea-9847-0192d11e3e31.png"><img width="250" alt="textclassification" src="https://user-images.githubusercontent.com/2412555/82403956-43b01900-9a8a-11ea-8b34-a89e1e7d52a7.png">
 
 ## <a name="transformers"></a> Using BERTweet with `transformers`
 
