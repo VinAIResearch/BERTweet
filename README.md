@@ -66,7 +66,7 @@ tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base", use_fast=False)
 # tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
 
 # INPUT TWEET IS ALREADY NORMALIZED!
-line = "SC has first two presumptive cases of coronavirus , DHEC confirms HTTPURL via @USER :cry:"
+line = "SC has first two presumptive cases of coronavirus , DHEC confirms HTTPURL via @USER :crying_face:"
 
 input_ids = torch.tensor([tokenizer.encode(line)])
 
