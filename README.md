@@ -5,7 +5,6 @@
     - [Pre-trained models](#models2)
     - [Example usage](#usage2)
     - [Normalize raw input Tweets](#preprocess)
-    - [A script to pre-process raw input Tweets](#preprocess2)
 3. [Using BERTweet with `fairseq`](#fairseq)
 
 
