@@ -1,54 +1,43 @@
   
 #### Table of contents
 1. [Introduction](#introduction)
-2. [Main results](#exp)
-3. [Using BERTweet with `transformers`](#transformers)
-    - [Installation](#install2)
-    - [Pre-trained model](#models2)
+2. [Using BERTweet with `transformers`](#transformers)
+    - [Pre-trained models](#models2)
     - [Example usage](#usage2)
     - [Normalize raw input Tweets](#preprocess)
-4. [Using BERTweet with `fairseq`](#fairseq)
+    - [A script to pre-process raw input Tweets](#preprocess2)
+3. [Using BERTweet with `fairseq`](#fairseq)
 
 
 # <a name="introduction"></a> BERTweet: A pre-trained language model for English Tweets 
 
- - BERTweet is the first public large-scale language model pre-trained for English Tweets. BERTweet is trained based on the [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  pre-training procedure, using the same model configuration as [BERT-base](https://github.com/google-research/bert). 
- - The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related to the **COVID-19** pandemic. 
- - BERTweet does better than its competitors RoBERTa-base and [XLM-R-base](https://arxiv.org/abs/1911.02116) and outperforms previous state-of-the-art models on three downstream Tweet NLP tasks of Part-of-speech tagging, Named entity recognition and text classification.
-
-The general architecture and experimental results of BERTweet can be found in our [paper](https://www.aclweb.org/anthology/2020.emnlp-demos.2/):
+BERTweet is the first public large-scale language model pre-trained for English Tweets. BERTweet is trained based on the [RoBERTa](https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md)  pre-training procedure. The corpus used to pre-train BERTweet consists of 850M English Tweets (16B word tokens ~ 80GB), containing 845M Tweets streamed from 01/2012 to 08/2019 and 5M Tweets related to the **COVID-19** pandemic. The general architecture and experimental results of BERTweet can be found in our [paper](https://aclanthology.org/2020.emnlp-demos.2/):
 
     @inproceedings{bertweet,
     title     = {{BERTweet: A pre-trained language model for English Tweets}},
     author    = {Dat Quoc Nguyen and Thanh Vu and Anh Tuan Nguyen},
     booktitle = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations},
-    year      = {2020},
-    pages     = {9--14}
+    pages     = {9--14},
+    year      = {2020}
     }
 
 **Please CITE** our paper when BERTweet is used to help produce published results or is incorporated into other software.
 
-## <a name="transformers"></a> Using BERTweet with `transformers`
-
-### <a name="install2"></a> Installation 
-
- -  Python 3.6+, and PyTorch 1.1.0+ (or TensorFlow 2.0+)
- -  Install `transformers`:
-    - `git clone https://github.com/huggingface/transformers.git`
-    - `cd transformers`
-    - `pip3 install --upgrade .`
- - Install `emoji`: `pip3 install emoji`
+## <a name="transformers"></a> Using BERTweet with [`transformers`](https://github.com/huggingface/transformers)
 
 ### <a name="models2"></a> Pre-trained models 
 
 
+
 Model | #params | Arch. | Pre-training data
 ---|---|---|---
-`vinai/bertweet-base` | 135M | base | 845M English Tweets (cased)
+`vinai/bertweet-base` | 135M | base | 850M English Tweets (cased)
 `vinai/bertweet-covid19-base-cased` | 135M | base | 23M COVID-19 English Tweets (cased)
 `vinai/bertweet-covid19-base-uncased` | 135M | base | 23M COVID-19 English Tweets (uncased)
+`vinai/bertweet-large` | 355M | large | 873M English Tweets (cased) 
 
-As of 09/2020, we have collected a corpus of about 23M "cased" COVID-19 English Tweets, and also generate an "uncased" version of this corpus. Then we continue pre-training from `vinai/bertweet-base` on each of the "cased" and "uncased" corpora of 23M Tweets for 40 additional epochs, resulting in two BERTweet variants  `vinai/bertweet-covid19-base-cased` and `vinai/bertweet-covid19-base-uncased`, respectively.  
+- 09/2020: Two pre-trained models `vinai/bertweet-covid19-base-cased` and `vinai/bertweet-covid19-base-uncased` are resulted by further pre-training the pre-trained model `vinai/bertweet-base` on a  corpus of 23M COVID-19 English Tweets.
+- 08/2021: Released `vinai/bertweet-large`.
 
 ### <a name="usage2"></a> Example usage 
 
@@ -80,7 +69,13 @@ with torch.no_grad():
 
 ### <a name="preprocess"></a> Normalize raw input Tweets 
 
-Before applying `fastBPE` to the pre-training corpus of 850M English Tweets, we tokenized these  Tweets using `TweetTokenizer` from the NLTK toolkit and used the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalized the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. Thus it is recommended to also apply the same pre-processing step for BERTweet-based downstream applications w.r.t. the raw input Tweets. BERTweet provides this pre-processing step by enabling the `normalization` argument. 
+Before applying BPE to the pre-training corpus of English Tweets, we tokenized these  Tweets using `TweetTokenizer` from the NLTK toolkit and used the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalized the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. Thus it is recommended to also apply the same pre-processing step for BERTweet-based downstream applications w.r.t. the raw input Tweets. 
+
+#### Internal normalizer
+
+BERTweet provides this pre-processing step by enabling the `normalization` argument of its tokenizer. Note that this argument currently only supports models "`vinai/bertweet-base`", "`vinai/bertweet-covid19-base-cased`" and "`vinai/bertweet-covid19-base-uncased`".
+
+ - Install `emoji`: `pip3 install emoji`
 
 ```python
 import torch
@@ -97,6 +92,24 @@ line = "SC has first two presumptive cases of coronavirus, DHEC confirms https:/
 input_ids = torch.tensor([tokenizer.encode(line)])
 ```
 
+#### External normalizer
+
+Alternatively, given the raw input Tweets, to obtain the same pre-processing output, users could employ our  [TweetNormalizer](https://github.com/VinAIResearch/BERTweet/blob/master/TweetNormalizer.py) module.
+
+- Installation: `pip3 install nltk emoji`
+
+```python
+import torch
+from transformers import AutoTokenizer
+from TweetNormalizer import normalizeTweet
+
+tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
+
+line = normalizeTweet("SC has first two presumptive cases of coronavirus, DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier")
+
+input_ids = torch.tensor([tokenizer.encode(line)])
+```
+
 ## <a name="fairseq"></a> Using BERTweet with `fairseq`
 
 Please see details at [HERE](https://github.com/VinAIResearch/BERTweet/blob/master/README_fairseq.md)!
@@ -105,7 +118,7 @@ Please see details at [HERE](https://github.com/VinAIResearch/BERTweet/blob/mast
     
     MIT License
 
-    Copyright (c) 2020 VinAI Research
+    Copyright (c) 2020-2021 VinAI Research
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
