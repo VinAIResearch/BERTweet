@@ -1,11 +1,12 @@
   
 #### Table of contents
 1. [Introduction](#introduction)
-2. [Using BERTweet with `transformers`](#transformers)
+2. [Main results](#results)
+3. [Using BERTweet with `transformers`](#transformers)
     - [Pre-trained models](#models2)
     - [Example usage](#usage2)
     - [Normalize raw input Tweets](#preprocess)
-3. [Using BERTweet with `fairseq`](#fairseq)
+4. [Using BERTweet with `fairseq`](#fairseq)
 
 
 # <a name="introduction"></a> BERTweet: A pre-trained language model for English Tweets 
@@ -21,6 +22,11 @@ BERTweet is the first public large-scale language model pre-trained for English 
     }
 
 **Please CITE** our paper when BERTweet is used to help produce published results or is incorporated into other software.
+
+## <a name="results"></a> Main results
+
+<img width="225" alt="postagging" src="https://user-images.githubusercontent.com/2412555/135724590-01d8d435-262d-44fe-a383-cd39324fe190.png">  <img width="225" alt="ner" src="https://user-images.githubusercontent.com/2412555/135724598-1e3605e7-d8ce-4c5e-be4a-62ae8501fae7.png">   <img width="225" alt="sentiment" src="https://user-images.githubusercontent.com/2412555/135724597-f1981f1e-fe73-4c03-b1ff-0cae0cc5f948.png">  <img width="225" alt="irony" src="https://user-images.githubusercontent.com/2412555/135724595-15f4f2c8-bbb6-4ee6-82a0-034769dec183.png">
+
 
 ## <a name="transformers"></a> Using BERTweet with [`transformers`](https://github.com/huggingface/transformers)
 
@@ -45,16 +51,12 @@ Model | #params | Arch. | Pre-training data
 import torch
 from transformers import AutoModel, AutoTokenizer 
 
-bertweet = AutoModel.from_pretrained("vinai/bertweet-base")
+bertweet = AutoModel.from_pretrained("vinai/bertweet-large")
 
-# For transformers v4.x+: 
-tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base", use_fast=False)
-
-# For transformers v3.x: 
-# tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
+tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-large")
 
 # INPUT TWEET IS ALREADY NORMALIZED!
-line = "SC has first two presumptive cases of coronavirus , DHEC confirms HTTPURL via @USER :crying_face:"
+line = "DHEC confirms HTTPURL via @USER :crying_face:"
 
 input_ids = torch.tensor([tokenizer.encode(line)])
 
@@ -63,7 +65,7 @@ with torch.no_grad():
     
 ## With TensorFlow 2.0+:
 # from transformers import TFAutoModel
-# bertweet = TFAutoModel.from_pretrained("vinai/bertweet-base")
+# bertweet = TFAutoModel.from_pretrained("vinai/bertweet-large")
 ```
 
 ### <a name="preprocess"></a> Normalize raw input Tweets 
@@ -86,7 +88,7 @@ tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base", normalization=T
 # from transformers import BertweetTokenizer
 # tokenizer = BertweetTokenizer.from_pretrained("vinai/bertweet-base", normalization=True)
 
-line = "SC has first two presumptive cases of coronavirus, DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier"
+line = "DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier 😢"
 
 input_ids = torch.tensor([tokenizer.encode(line)])
 ```
@@ -102,9 +104,9 @@ import torch
 from transformers import AutoTokenizer
 from TweetNormalizer import normalizeTweet
 
-tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
+tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-large")
 
-line = normalizeTweet("SC has first two presumptive cases of coronavirus, DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier")
+line = normalizeTweet("DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier 😢")
 
 input_ids = torch.tensor([tokenizer.encode(line)])
 ```
