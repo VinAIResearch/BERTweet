@@ -25,7 +25,9 @@ BERTweet is the first public large-scale language model pre-trained for English 
 
 ## <a name="results"></a> Main results
 
-<img width="225" alt="postagging" src="https://user-images.githubusercontent.com/2412555/135724590-01d8d435-262d-44fe-a383-cd39324fe190.png">  <img width="225" alt="ner" src="https://user-images.githubusercontent.com/2412555/135724598-1e3605e7-d8ce-4c5e-be4a-62ae8501fae7.png">   <img width="225" alt="sentiment" src="https://user-images.githubusercontent.com/2412555/135724597-f1981f1e-fe73-4c03-b1ff-0cae0cc5f948.png">  <img width="225" alt="irony" src="https://user-images.githubusercontent.com/2412555/135724595-15f4f2c8-bbb6-4ee6-82a0-034769dec183.png">
+<img width="275" alt="postagging" src="https://user-images.githubusercontent.com/2412555/135724590-01d8d435-262d-44fe-a383-cd39324fe190.png"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width="275" alt="ner" src="https://user-images.githubusercontent.com/2412555/135724598-1e3605e7-d8ce-4c5e-be4a-62ae8501fae7.png">   
+
+<img width="275" alt="sentiment" src="https://user-images.githubusercontent.com/2412555/135724597-f1981f1e-fe73-4c03-b1ff-0cae0cc5f948.png"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img width="275" alt="irony" src="https://user-images.githubusercontent.com/2412555/135724595-15f4f2c8-bbb6-4ee6-82a0-034769dec183.png">
 
 
 ## <a name="transformers"></a> Using BERTweet with [`transformers`](https://github.com/huggingface/transformers)
