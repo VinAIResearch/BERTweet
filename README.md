@@ -78,7 +78,8 @@ Before applying BPE to the pre-training corpus of English Tweets, we tokenized t
 
 BERTweet provides this pre-processing step by enabling the `normalization` argument of its tokenizer. Note that this argument currently only supports models "`vinai/bertweet-base`", "`vinai/bertweet-covid19-base-cased`" and "`vinai/bertweet-covid19-base-uncased`".
 
- - Install `emoji`: `pip3 install emoji`
+ - Install `emoji`: `pip3 install emoji==0.6.0`
+ - The `emoji` version must be either 0.5.4 or 0.6.0. Newer `emoji` versions have been updated to newer versions of the Emoji Charts, thus not consistent with the one used for pre-processing our pre-training Tweet corpus. 
 
 ```python
 import torch
@@ -95,11 +96,13 @@ line = "DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two
 input_ids = torch.tensor([tokenizer.encode(line)])
 ```
 
+
+
 #### External normalizer
 
 Alternatively, given the raw input Tweets, to obtain the same pre-processing output, users could employ our  [TweetNormalizer](https://github.com/VinAIResearch/BERTweet/blob/master/TweetNormalizer.py) module.
 
-- Installation: `pip3 install nltk emoji`
+- Installation: `pip3 install nltk emoji==0.6.0`
 
 ```python
 import torch
