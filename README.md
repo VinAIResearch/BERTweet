@@ -39,11 +39,11 @@ BERTweet is the first public large-scale language model pre-trained for English 
 Model | #params | Arch. | Pre-training data
 ---|---|---|---
 `vinai/bertweet-base` | 135M | base | 850M English Tweets (cased)
-`vinai/bertweet-covid19-base-cased` | 135M | base | 23M COVID-19 English Tweets (cased)
+`vinai/bertweet-covid19-base-cased` | 135M | base | [23M COVID-19 English Tweets (cased)](https://forms.gle/sdppxWdmG7bD9rXH7)
 `vinai/bertweet-covid19-base-uncased` | 135M | base | 23M COVID-19 English Tweets (uncased)
 `vinai/bertweet-large` | 355M | large | 873M English Tweets (cased) 
 
-- 09/2020: Two pre-trained models `vinai/bertweet-covid19-base-cased` and `vinai/bertweet-covid19-base-uncased` are resulted by further pre-training the pre-trained model `vinai/bertweet-base` on a  corpus of 23M COVID-19 English Tweets.
+- 09/2020: Two pre-trained models `vinai/bertweet-covid19-base-cased` and `vinai/bertweet-covid19-base-uncased` are resulted by further pre-training the pre-trained model `vinai/bertweet-base` on [a corpus of 23M COVID-19 English Tweets](https://forms.gle/sdppxWdmG7bD9rXH7).
 - 08/2021: Released `vinai/bertweet-large`.
 
 ### <a name="usage2"></a> Example usage 
