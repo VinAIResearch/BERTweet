@@ -36,12 +36,12 @@ BERTweet is the first public large-scale language model pre-trained for English 
 
 
 
-Model | #params | Arch. | Pre-training data
----|---|---|---
-`vinai/bertweet-base` | 135M | base | 850M English Tweets (cased)
-`vinai/bertweet-covid19-base-cased` | 135M | base | [23M COVID-19 English Tweets (cased)](https://forms.gle/sdppxWdmG7bD9rXH7)
-`vinai/bertweet-covid19-base-uncased` | 135M | base | 23M COVID-19 English Tweets (uncased)
-`vinai/bertweet-large` | 355M | large | 873M English Tweets (cased) 
+Model | #params | Arch. | Max length | Pre-training data
+---|---|---|---|---
+`vinai/bertweet-base` | 135M | base | 128 | 850M English Tweets (cased)
+`vinai/bertweet-covid19-base-cased` | 135M | base | 128 | [23M COVID-19 English Tweets (cased)](https://forms.gle/sdppxWdmG7bD9rXH7)
+`vinai/bertweet-covid19-base-uncased` | 135M | base | 128 | 23M COVID-19 English Tweets (uncased)
+`vinai/bertweet-large` | 355M | large | 512 | 873M English Tweets (cased) 
 
 - 09/2020: Two pre-trained models `vinai/bertweet-covid19-base-cased` and `vinai/bertweet-covid19-base-uncased` are resulted by further pre-training the pre-trained model `vinai/bertweet-base` on [a corpus of 23M COVID-19 English Tweets](https://forms.gle/sdppxWdmG7bD9rXH7).
 - 08/2021: Released `vinai/bertweet-large`.
@@ -74,35 +74,10 @@ with torch.no_grad():
 
 Before applying BPE to the pre-training corpus of English Tweets, we tokenized these  Tweets using `TweetTokenizer` from the NLTK toolkit and used the `emoji` package to translate emotion icons into text strings (here, each icon is referred to as a word token).   We also normalized the Tweets by converting user mentions and web/url links into special tokens `@USER` and `HTTPURL`, respectively. Thus it is recommended to also apply the same pre-processing step for BERTweet-based downstream applications w.r.t. the raw input Tweets. 
 
-#### Internal normalizer
-
-BERTweet provides this pre-processing step by enabling the `normalization` argument of its tokenizer. Note that this argument currently only supports models "`vinai/bertweet-base`", "`vinai/bertweet-covid19-base-cased`" and "`vinai/bertweet-covid19-base-uncased`".
-
- - Install `emoji`: `pip3 install emoji==0.6.0`
- - The `emoji` version must be either 0.5.4 or 0.6.0. Newer `emoji` versions have been updated to newer versions of the Emoji Charts, thus not consistent with the one used for pre-processing our pre-training Tweet corpus. 
-
-```python
-import torch
-from transformers import AutoTokenizer
-
-# Load the AutoTokenizer with a normalization mode if the input Tweet is raw
-tokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base", normalization=True)
-
-# from transformers import BertweetTokenizer
-# tokenizer = BertweetTokenizer.from_pretrained("vinai/bertweet-base", normalization=True)
-
-line = "DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier 😢"
-
-input_ids = torch.tensor([tokenizer.encode(line)])
-```
-
-
-
-#### External normalizer
-
-Alternatively, given the raw input Tweets, to obtain the same pre-processing output, users could employ our  [TweetNormalizer](https://github.com/VinAIResearch/BERTweet/blob/master/TweetNormalizer.py) module.
+Given the raw input Tweets, to obtain the same pre-processing output, users could employ our  [TweetNormalizer](https://github.com/VinAIResearch/BERTweet/blob/master/TweetNormalizer.py) module.
 
 - Installation: `pip3 install nltk emoji==0.6.0`
+- The `emoji` version must be either 0.5.4 or 0.6.0. Newer `emoji` versions have been updated to newer versions of the Emoji Charts, thus not consistent with the one used for pre-processing our pre-training Tweet corpus. 
 
 ```python
 import torch
