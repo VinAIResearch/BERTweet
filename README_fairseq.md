@@ -37,7 +37,7 @@ import torch
 
 # Load BERTweet-base in fairseq
 from fairseq.models.roberta import RobertaModel
-bpe_codes_file = '/Absolute-path-to/BERTweet_base_fairseq/' + 'bpe.codes'
+bpe_codes_file = '/Absolute-path-to/BERTweet_base_fairseq/bpe.codes'
 BERTweet = RobertaModel.from_pretrained('/Absolute-path-to/BERTweet_base_fairseq', checkpoint_file='model.pt', bpe='fastbpe', bpe_codes=bpe_codes_file).eval()
 
 # INPUT TEXT IS TOKENIZED!
