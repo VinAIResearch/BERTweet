@@ -32,6 +32,26 @@ BERTweet is the first public large-scale language model pre-trained for English 
 
 ## <a name="transformers"></a> Using BERTweet with [`transformers`](https://github.com/huggingface/transformers)
 
+### Installation <a name="install2"></a>
+ -  Python 3.6+, and PyTorch 1.1.0+ (or TensorFlow 2.0+)
+ -  Install `transformers`:
+ 
+ ```
+git clone https://github.com/huggingface/transformers.git
+cd transformers
+pip3 install -e .
+```
+
+- Note that previously we successfully merged a slow tokenizer for BERTweet into the main `transformers` branch. The process of merging a fast tokenizer for BERTweet is in the discussion, as detailed in [this pull request](https://github.com/huggingface/transformers/pull/17254#issuecomment-1133932067). While waiting for this pull request's approval, if users would like to experiment with the fast tokenizer, the users might install `transformers` as follows:
+
+```
+git clone --single-branch --branch fast_tokenizers_BARTpho_PhoBERT_BERTweet https://github.com/datquocnguyen/transformers.git
+cd transformers
+pip3 install -e .
+```
+
+- Install `tokenizers` with pip: `pip3 install tokenizers`
+
 ### <a name="models2"></a> Pre-trained models 
 
 
